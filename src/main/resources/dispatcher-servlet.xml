@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+    <context:component-scan base-package="com.web.coursecontroller" />
+    <context:component-scan base-package="com.web.logincontroller" />
+    <context:component-scan base-package="com.web.registercontroller"/>
+    <context:component-scan base-package="com.web.forgotpasswordcontroller"/>
+    <context:component-scan base-package="com.web.deletecontroller"/>
+    <context:component-scan base-package="com.web.editcontroller"/>
+    <mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="username" value="root" />
+		<property name="password" value="harikumar" />
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="registerdata" class="com.web.registerdao.RegisterDao">
+	</bean>
+	<bean id="editdata" class="com.web.editdao.EditDao">
+	</bean>
+	<bean id="logindata" class="com.web.logindao.LoginDao">
+	</bean>
+	<bean id="coursedata" class="com.web.coursedao.CourseDao">
+	</bean>
+	<bean id="forgotdata" class="com.web.forgotpassworddao.ForgotpasswordDao">
+	</bean>
+	<bean id="deletedata" class="com.web.deletedao.DeleteDao">
+	</bean>
+ 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="25" />
+		<property name="username" value="ultimatehari7@gmail.com" />
+		<property name="password" value="ghktrust0911" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+ 	<bean id="smtpMailSender" class="com.web.mailer.SmtpMailSender" />
+ 	<bean id="smtpMailpassword" class="com.web.mailer.SmtpMailSender" />
+ 	
+	
+	 <bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+</beans>
